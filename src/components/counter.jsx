@@ -5,32 +5,37 @@
 // get compiled by React.createElement()
 // return statement inside render should always have '()'
 // if you don't want an extra div, user React.Fragment instead of <div>
+// Install react developer tools in chrome extension
 
 import React, { Component } from "react";
 class Counter extends Component {
   state = {
-    count: 0
+    value: this.props.value // this changes the '0'
   };
 
-  handleIncrement = (product) => {
-    console.log(product)
+  handleIncrement = product => {
+    console.log(product);
     // This is an eventhandler function
-    // always name functions/methods on what they're suppose to do 
+    // always name functions/methods on what they're suppose to do
     // to not confuse other developers and yourself
-    this.setState({count: this.state.count+1}); // you need to pass an object and property 
+    this.setState({ value: this.state.value + 1 }); // you need to pass an object and property
     // this.setState is a react method
   };
 
   render() {
+    console.log("props", this.props);
+    // every react component has a property called 'props'
+    // a plain javascript object that includes all the attributes that we set in counters component (counter and value)
+    // key wont be part of the components because its a unique attribute
     return (
       <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={ () => this.handleIncrement() } // OnClick is one of the many DOM event properties in JS 
-          // when you wanna pass something on the event handler, 
+          onClick={() => this.handleIncrement()} // OnClick is one of the many DOM event properties in JS
+          // when you wanna pass something on the event handler,
           // just add arrow function and the object you wanna pass on the eventhandler
           className="btn btn-secondary btn-sm ml-2 mt-2"
-          >
+        >
           Increment
         </button>
       </div>
@@ -39,19 +44,19 @@ class Counter extends Component {
 
   getBadgeClasses() {
     let classes = "badge-m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
+    classes += this.state.value === 0 ? "warning" : "primary";
     return classes;
   }
 
   formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "ZERO" : count;
+    const { value } = this.state;
+    return value === 0 ? "ZERO" : value;
   }
 }
 
 export default Counter;
 
-// CONDITIONAL RENDERING  
+// CONDITIONAL RENDERING
 /**
   renderTags() {
     if (this.state.tags.length === 0) return <p>There are no tags!</p>; // this is the case for empty array
